@@ -1,0 +1,25 @@
+{
+  "name": "graham",
+  "version": "1.0.0",
+  "description": "Parser combinators for JS.",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "jsx --harmony --strip-types --source-map-inline parse.js > index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bodil/graham"
+  },
+  "keywords": [
+    "parser"
+  ],
+  "author": "Bodil Stokke",
+  "license": "LGPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/bodil/graham/issues"
+  },
+  "homepage": "https://github.com/bodil/graham",
+  "devDependencies": {
+    "react-tools": "^0.12.2"
+  }
+}

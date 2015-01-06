@@ -1,0 +1,6 @@
+[ignore]
+
+[include]
+
+[options]
+module.system=node
