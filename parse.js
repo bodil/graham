@@ -102,7 +102,7 @@ var num: Parser<number> = seq(
     ]), ret(""))
   ]), (s) => {
     var n = parseFloat(s);
-    return n == NaN ? fail : ret(n);
+    return isNaN(n) ? fail : ret(n);
   });
 
 function makeParser<A>(p: Parser<A>): ((s: string) => A) {
