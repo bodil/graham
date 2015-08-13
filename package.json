@@ -4,7 +4,7 @@
   "description": "Parser combinators for JS.",
   "main": "index.js",
   "scripts": {
-    "prepublish": "jsx --harmony --strip-types --source-map-inline parse.js > index.js"
+    "prepublish": "babel -o index.js parse.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/bodil/graham",
   "devDependencies": {
-    "react-tools": "^0.12.2"
+    "babel": "^5.8.21"
   }
 }
