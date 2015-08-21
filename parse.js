@@ -7,6 +7,25 @@ export function parse<A>(parser: Parser<A>, input: string): ParseResult<A> {
   return parser(input);
 }
 
+export function run(genFunc) {
+  const gen = genFunc();
+  console.log(gen);
+  return function runP(input, val) {
+    const next = gen.next(val);
+    if (next.done) {
+      return next.value;
+    } else {
+      const out = parse(next.value, input);
+      if (out == null) {
+        return null;
+      } else {
+        const [result, nextInput] = out;
+        return runP(nextInput, result);
+      }
+    }
+  }
+}
+
 export function seq<A, B>(p: Parser<A>, f: (a: A) => Parser<B>): Parser<B> {
   return (input) => {
     const out = parse(p, input);
