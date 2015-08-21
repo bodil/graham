@@ -13,7 +13,7 @@ export function run(genFunc) {
   return function runP(input, val) {
     const next = gen.next(val);
     if (next.done) {
-      return next.value;
+      return [next.value, ""];
     } else {
       const out = parse(next.value, input);
       if (out == null) {
