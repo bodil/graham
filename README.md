@@ -12,10 +12,10 @@ $ npm install --save graham
 var p = require("graham");
 
 var myLittleParser = p.either(
-  p.seq(p.string("left "), (_) => p.seq(p.num(),
+  p.seq(p.string("left "), (_) => p.seq(p.num,
     (n) => p.ret({ "left": n }))),
-  p.string("right "), (_) => p.seq(p.num(),
-    (n) => p.ret({ "right": n }))
+  p.seq(p.string("right "), (_) => p.seq(p.num,
+    (n) => p.ret({ "right": n })))
 );
 
 p.parse(myLittleParser, "left 123");
@@ -25,7 +25,7 @@ p.parse(myLittleParser, "right 456");
 // == [{"right": 456}, ""]
 
 p.parse(myLittleParser, "left lol");
-// == []
+// == null
 
 p.parse(myLittleParser, "right 123lol");
 // == [{"right": 123}, "lol"]
