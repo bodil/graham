@@ -8,21 +8,24 @@ export function parse<A>(parser: Parser<A>, input: string): ParseResult<A> {
 }
 
 export function run(genFunc) {
-  const gen = genFunc();
-  return function runP(input, val) {
-    const next = gen.next(val);
-    if (next.done) {
-      return [next.value, ""];
-    } else {
-      const out = parse(next.value, input);
-      if (out == null) {
-        return null;
+  return function(input) {
+    const gen = genFunc();
+    const runP = function runP(input, val) {
+      const next = gen.next(val);
+      if (next.done) {
+        return [next.value, input];
       } else {
-        const [result, nextInput] = out;
-        return runP(nextInput, result);
+        const out = parse(next.value, input);
+        if (out == null) {
+          return null;
+        } else {
+          const [result, nextInput] = out;
+          return runP(nextInput, result);
+        }
       }
     }
-  }
+    return runP(input);
+  };
 }
 
 export function seq<A, B>(p: Parser<A>, f: (a: A) => Parser<B>): Parser<B> {
