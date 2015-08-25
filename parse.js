@@ -9,7 +9,6 @@ export function parse<A>(parser: Parser<A>, input: string): ParseResult<A> {
 
 export function run(genFunc) {
   const gen = genFunc();
-  console.log(gen);
   return function runP(input, val) {
     const next = gen.next(val);
     if (next.done) {
