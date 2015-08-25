@@ -131,6 +131,13 @@ export const num: Parser<number> = seq(
     return isNaN(n) ? fail : ret(n);
   });
 
+export const point = run(function*() {
+  const x = yield num;
+  yield char(",");
+  const y = yield num;
+  return {x, y};
+});
+
 export function makeParser<A>(p: Parser<A>): ((s: string) => A) {
   return (s) => {
     const parsed = parse(p, s);
