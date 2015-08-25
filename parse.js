@@ -35,10 +35,15 @@ export function seq<A, B>(p: Parser<A>, f: (a: A) => Parser<B>): Parser<B> {
   };
 }
 
-export function either<A>(a: Parser<A>, b: Parser<A>): Parser<A> {
-  return (input) => {
-    return parse(a, input) || parse(b, input);
-  };
+export function either<A>(a: Parser<A> | Array<Parser<A>>, b?: Parser<A>): Parser<A> {
+  if (a instanceof Array) {
+    const [head, ...tail] = a;
+    return either(head, either(tail));
+  } else {
+    return (input) => {
+      return parse(a, input) || parse(b, input);
+    };
+  }
 }
 
 export function ret<A>(value: A): Parser<A> {
